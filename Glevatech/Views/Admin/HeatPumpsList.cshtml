@@ -1,0 +1,140 @@
+﻿@model List<HeatPump>
+
+<h1>Керування модельним рядом</h1>
+
+@if (TempData.ContainsKey("ErrorMessage"))
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<div class="d-flex justify-content-between">
+    <h2>Теплові насоси <span style="font-size:1.2em; font-weight:700;">ґрунт-вода</span></h2>
+    <div class="d-flex flex-column justify-content-end col-3">
+
+        <a class="btn btn-success " asp-action="CreateHeatPump" asp-controller="Admin" style="margin-right:11px; width:100%;">Додати нову модель</a>
+
+        <form method="get" class="mt-2">
+            @Html.DropDownList("status", (IEnumerable<SelectListItem>)ViewBag.HeatPumpStatus, new {onchange = "this.form.submit();", @class = "form-select"})
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Модель</th>
+        <th>Ціна</th>
+        <th>Потужність</th>
+        <th>Площа</th>
+        <th>Редагувати</th>
+        <th>Видалити</th>
+    </tr>
+    @foreach (var item in Model.Where(x => x.Type == "ґрунт-вода"))
+    {
+        <tr>
+            <td class="col-2" style="background-color:orange; font-weight:700;">@item.Name</td>
+            <td class="col-2" style="font-weight:700;">@item.Price $</td>
+            <td class="col-2">@item.Power кВт</td>
+            <td class="col-2">@item.HeatArea м&sup2</td>
+            <td class="col-2">
+                <button type="button" class="btn btn-success edit-button" data-bs-toggle="modal" data-bs-target="#exampleModalEdit-@item.Id" style="width:95%;">
+                    Редагувати
+                </button>
+            </td>
+            <td class="col-2">
+                <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target="#exampleModalDelete-@item.Id" style="width:95%;">
+                    Видалити
+                </button>
+            </td>
+
+
+        </tr>
+    }
+</table>
+
+<h2 style="margin-top:50px;">Теплові насоси <span style="font-size:1.2em; font-weight:700;">вода-вода</span></h2>
+<table class="table">
+    <tr>
+        <th>Модель</th>
+        <th>Ціна</th>
+        <th>Потужність</th>
+        <th>Площа</th>
+        <th>Редагувати</th>
+        <th>Видалити</th>
+    </tr>
+    @foreach (var item in Model.Where(x => x.Type == "вода-вода"))
+    {
+        <tr>
+            <td class="col-2" style="background-color:orange; font-weight:700;">@item.Name</td>
+            <td class="col-2" style="font-weight:700;">@item.Price $</td>
+            <td class="col-2">@item.Power кВт</td>
+            <td class="col-2">@item.HeatArea м&sup2</td>
+            <td class="col-2">
+                <button type="button" class="btn btn-success edit-button" data-bs-toggle="modal" data-bs-target="#exampleModalEdit-@item.Id" style="width:95%;">
+                    Редагувати
+                </button>
+            </td>
+            <td class="col-2">
+                <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target="#exampleModalDelete-@item.Id" style="width:95%;">
+                    Видалити
+                </button>
+            </td>
+
+
+        </tr>
+    }
+</table>
+
+@foreach (var item in Model)
+{
+    <!-- Модальное окно для редактирования -->
+    <div class="modal fade" id="exampleModalEdit-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabelEdit-@item.Id" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Увага</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Ви дійсно хочете перейти до сторінки редагування?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ні</button>
+                    <a class="btn btn-success" asp-action="EditHeatPump" asp-controller="Admin" asp-route-id="@item.Id">Так, редагувати</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для удаления -->
+    <form type="submit" asp-action="DeleteHeatPump" asp-controller="Admin" method="post" asp-route-id="@item.Id">
+        <div class="modal fade" id="exampleModalDelete-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabelDelete-@item.Id" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Увага</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Ви дійсно хочете видалити дану модель ТН?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ні</button>
+                        <button type="submit" class="btn btn-danger">Так, видалити</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+
+<style>
+    table {
+        text-align: center;
+    }
+</style>
+
+
+
+

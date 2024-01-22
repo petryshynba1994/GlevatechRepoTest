@@ -1,0 +1,111 @@
+﻿.customer-form {
+    
+    padding:10px;
+    padding-bottom: 30px;
+}
+.map-api {
+    margin-top:30px;
+}
+#addressInput {
+    width: 100%;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+#map {
+    border: 1px solid gray;
+    border-top-style: none;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.customer-form h2 {
+    text-align: center;
+    padding: 20px;
+    font-size: 2em;
+    font-weight: 900;
+}
+    .customer-form input {
+        border:1px solid gray;
+        border-radius:4px;
+        height:30px;
+    }
+    .customer-form select {
+        border: 1px solid gray;
+        border-radius: 4px;
+        height: 30px;
+    }
+
+    .short-inputs {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    .short-inputs div {
+        width: 24%;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+    }
+    .short-inputs div input{
+        width: 100%;       
+    }
+
+.customer-form label {
+    font-weight:600;   
+}
+.short-inputs-date {
+    display: flex;
+    
+    align-items: end;   
+    margin-top: 20px;
+}
+.short-inputs-date div{
+    width:24%;
+}
+
+    .short-inputs-date div:nth-child(2) {
+        margin-left: 10px;
+    }
+
+.edit-button input {
+    width:60%;
+    background-color:limegreen;    
+}
+
+.tox-tinymce {
+    border: 1px solid gray;   
+    border-radius:4px;
+}
+/*#statusDropdown.green-background {
+    background-color: rgb(87, 230, 0);
+}*/
+
+/* Стили для красного фона, когда выбрана вторая опция */
+/*#statusDropdown.red-background {
+    background-color: rgb(255, 0, 0);
+}*/
+/*#statusDropdown select option:nth-child(1) {
+    background-color: rgb(87, 230, 0);
+}
+#statusDropdown select option:nth-child(2) {
+    background-color: rgb(87, 230, 0);
+}*/
+.status-select {
+    margin: auto;
+    width: fit-content;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size:1.2em;
+    font-weight:900;
+}
+.statusDropdown {
+    font-weight: 900;
+}
+.red-background {
+    background-color: rgb(255, 0, 0);
+    font-weight: 700;
+    
+}
+.green-background {
+    background-color: rgb(87, 230, 0);
+    font-weight: 700;   
+}

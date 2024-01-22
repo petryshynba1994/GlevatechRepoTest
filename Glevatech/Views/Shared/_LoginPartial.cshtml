@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<div class="partial-block">
+@if (SignInManager.IsSignedIn(User))
+{
+    <div >
+            <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Привіт @UserManager.GetUserName(User).Split('@')[0]!</a>
+    </div>
+        <div >
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout"  type="submit">Вийти</button>
+        </form>
+    </div>
+}
+else
+{
+    <div >
+            <a id="register"  asp-area="Identity" asp-page="/Account/Register">Зареєструватись</a>
+    </div>
+    <div >
+            <a id="login"  asp-area="Identity" asp-page="/Account/Login">Увійти</a>
+    </div>
+}
+</div>
+

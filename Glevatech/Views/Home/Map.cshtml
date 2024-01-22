@@ -1,0 +1,171 @@
+﻿@*<html>
+<head>
+    <title>Place Autocomplete</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+    <link href="~/css/map.css" type="text/css" rel="stylesheet" />
+    <script type="module" src="~/js/map.js"></script>
+
+</head>
+<body>
+    <div class="pac-card" id="pac-card">
+        <div>
+            <div id="title">Autocomplete search</div>
+            <div id="type-selector" class="pac-controls">
+                <input type="radio"
+                       name="type"
+                       id="changetype-all"
+                       checked="checked" />
+                <label for="changetype-all">All</label>
+
+                <input type="radio" name="type" id="changetype-establishment" />
+                <label for="changetype-establishment">establishment</label>
+
+                <input type="radio" name="type" id="changetype-address" />
+                <label for="changetype-address">address</label>
+
+                <input type="radio" name="type" id="changetype-geocode" />
+                <label for="changetype-geocode">geocode</label>
+
+                <input type="radio" name="type" id="changetype-cities" />
+                <label for="changetype-cities">(cities)</label>
+
+                <input type="radio" name="type" id="changetype-regions" />
+                <label for="changetype-regions">(regions)</label>
+            </div>
+            <br />
+            <div id="strict-bounds-selector" class="pac-controls">
+                <input type="checkbox" id="use-location-bias" value="" checked />
+                <label for="use-location-bias">Bias to map viewport</label>
+
+                <input type="checkbox" id="use-strict-bounds" value="" />
+                <label for="use-strict-bounds">Strict bounds</label>
+            </div>
+        </div>
+        <div id="pac-container">
+            <input id="pac-input" type="text" placeholder="Enter a location" />
+        </div>
+    </div>
+    <div id="map"></div>
+    <div id="infowindow-content">
+        <span id="place-name" class="title"></span><br />
+        <span id="place-address"></span>
+    </div>
+
+    <!--
+      The `defer` attribute causes the callback to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises.
+      See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBD3olrWZ-vIqMH3hml6YuVNkiTNdeD4D0&callback=initMap&libraries=places&v=weekly"
+            defer></script>
+</body>
+</html>
+
+
+
+
+*@
+
+@*<input id="addressInput" type="text" placeholder="Введіть адресу" style="width:500px;">*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBD3olrWZ-vIqMH3hml6YuVNkiTNdeD4D0&libraries=places&language=uk"></script>
+
+@*<script>
+    // Инициализируем Places API с ограничением на Украину
+    function initialize() {
+        var input = document.getElementById('addressInput');
+        var options = {
+            types: ['geocode'],
+            componentRestrictions: { country: 'UA' }, // Ограничиваем поиск по Украине
+            language: 'uk'
+        };
+
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
+
+    // Вызываем функцию инициализации после загрузки карты
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>*@
+
+<style>
+    #addressInput {
+        width:100%;
+        margin-bottom:100px;
+    }
+</style>
+<input id="addressInput" type="text" placeholder="Введите адрес">
+<div id="map" style="width: 100%; height: 400px;"></div>
+
+
+<script>
+    var map; // Глобальная переменная для объекта карты
+    var marker; // Глобальная переменная для маркера
+    var input = document.getElementById('addressInput'); // Получаем поле ввода адреса
+
+    // Инициализируем Places API с ограничением на Украину и отображением карты
+    function initialize() {
+        var options = {
+            types: ['geocode'],
+            componentRestrictions: { country: 'UA' },
+            language: 'uk'
+        };
+
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+        // Создаем карту
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 49.8397, lng: 24.0297 }, // Начальные координаты для Украины
+            zoom: 6 // Уровень масштабирования карты
+        });
+
+        // Создаем маркер без начального положения
+        marker = new google.maps.Marker({
+            map: map,
+            draggable: true, // Разрешаем передвигать маркер
+            anchorPoint: new google.maps.Point(0, -29)
+        });
+
+        // Обработчик события выбора адреса из автозаполнения
+        autocomplete.addListener('place_changed', function () {
+            marker.setVisible(false);
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                //window.alert('Нет информации о выбранном месте.');
+                return;
+            }
+
+            // Если место имеет геометрию, отобразим его на карте
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17); // Устанавливаем уровень масштабирования для одного маркера
+            }
+
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+
+            // Обновляем поле ввода адреса
+            input.value = place.formatted_address;
+        });
+
+        // Обработчик события передвижения маркера
+        marker.addListener('dragend', function () {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'location': marker.getPosition() }, function (results, status) {
+                if (status === 'OK' && results[0]) {
+                    input.value = results[0].formatted_address;
+                } 
+                else {
+                    window.alert('Не удалось определить адрес.');
+                }
+            });
+        });
+    }
+
+    // Вызываем функцию инициализации после загрузки карты
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>

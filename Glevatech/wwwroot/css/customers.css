@@ -1,0 +1,21 @@
+﻿.form-choose {
+    display: flex;
+    flex-direction:row;
+    margin-bottom:20px;
+}
+.form-search {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+#searchType {
+    width:300px;
+    padding-left:0;
+    text-align:center;
+}
+#pageSize {
+    width:80px;
+}
+#status {
+    width:133px;
+}

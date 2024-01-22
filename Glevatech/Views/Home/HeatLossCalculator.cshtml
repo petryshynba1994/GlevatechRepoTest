@@ -1,0 +1,1066 @@
+﻿
+@{
+    ViewData["Title"] = "Home";
+}
+
+
+
+
+    <div class="calculator-block mx-auto col-12">
+        <h1>Калькулятор тепловитрат будинку</h1>
+        <table class="table table-custom-top mx-auto">
+            <colgroup>
+                <col class="col-6">
+                <col class="col-6">
+            </colgroup>
+            <tr>
+                <td>
+                    <label for="city">Місто:</label>
+                </td>
+                <td class="text-end ">
+                    @*@Html.DropDownList("city", ViewBag.Cities as IEnumerable<SelectListItem>, "Виберіть місто", new { id = "city", @class = "custom-select" })*@
+                
+            <select class="custom-select" id="city" name="city">
+                <option value="">Виберіть місто</option>
+                <option value="-22">Київ</option>
+                <option value="-15">Сімферополь</option>
+                <option value="-6">Ялта</option>
+                <option value="-21">Вінниця</option>
+                <option value="-20">Луцьк</option>
+                <option value="-24">Дніпро</option>
+                <option value="-17">Кривий Ріг</option>
+                <option value="-22">Донецьк</option>
+                <option value="-22">Житомир</option>
+                <option value="-18">Ужгород</option>
+                <option value="-21">Запоріжжя</option>
+                <option value="-20">Ів.-Франківськ</option>
+                <option value="-22">Кропивницький </option>
+                <option value="-25">Луганськ </option>
+                <option value="-19">Львів </option>
+                <option value="-20">Миколаїв</option>
+                <option value="-18">Одеса </option>
+                <option value="-23">Полтава</option>
+                <option value="-21">Рівне </option>
+                <option value="-25">Суми</option>
+                <option value="-20">Тернопіль</option>
+                <option value="-23">Харків</option>
+                <option value="-19">Херсон</option>
+                <option value="-21">Хмельницький</option>
+                <option value="-21">Черкаси</option>
+                <option value="-20">Чернівці</option>
+                <option value="-23">Чернігів</option>
+                <option value="-20">Умань</option>
+                <option value="-15">Феодосія</option>
+                <option value="-21">Ковель</option>
+            </select>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="cityTemperature">Розрахункова мінімальна температура, С°:</label>
+                </td>
+                <td class="text-end">
+                    <input type="number" id="cityTemperature" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="innerTemperature">Температура приміщення, С°:</label>
+                </td>
+                <td class="text-end">
+                    <input type="number" id="innerTemperature" />
+                </td>
+            </tr>
+        </table>
+
+
+        <div onclick="toggleParentWallForm()" class="parent-plus-minus-button mx-auto">
+            <div class="plus-minus-button">
+                <p id="plusMinusButton">+</p>
+            </div>
+            <div class="plus-minus-button-title">
+                <h2 class="text-center">Тепловитрати через стіни</h2>
+            </div>
+        </div>
+
+
+        <div id="parentWallLayer" style="display: none;">
+            <div class="topPartOfTable mx-auto">
+                <table class="table table-custom-top mx-auto mb-0">
+                    <tr>
+                        <td>
+                            <label for="wallType">Тип фасаду:</label>
+                        </td>
+                        <td class="col text-end">
+                            <select id="wallType" class="custom-select custom-select-1">
+                                <option value="23">без вентильованого прошарку</option>
+                                <option value="12">з вентильованим прошарком</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="wallArea">Площа зовнішніх стін, м&sup2:</label>
+                        </td>
+                        <td class="col text-end">
+                            <input type="number" id="wallArea" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="topPartOfTable d-flex flex-column align-items-end">
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggleWall1Form()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton1WallLayer">-</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">перший шар:</h4>
+                        </div>
+                    </div>
+                    <div id="firstWallLayer">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td class="text-start">
+                                    <label for="firstMaterialsWallLayer">Матеріали:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("firstMaterialsWallLayer", ViewBag.Materials as IEnumerable<SelectListItem>, new {@class = "custom-select" })*@
+                                <select class="custom-select" id="firstMaterialsWallLayer" name="firstMaterialsWallLayer">
+                                    <option value="0">Виберіть матеріал</option>
+                                    <option value="2.1">Бетон</option>
+                                    <option value="2.04">Залізобетон</option>
+                                    <option value="0.47">Пінобетон 1000 кг/м.куб.</option>
+                                    <option value="0.37">Пінобетон 800 кг/м.куб.</option>
+                                    <option value="0.26">Пінобетон 600 кг/м.куб.</option>
+                                    <option value="0.125">Газоблок D400 Aeroc</option>
+                                    <option value="0.81">Шлакобетон</option>
+                                    <option value="0.64">Пустотіла керамічна цегла</option>
+                                    <option value="0.93">Цементно-піщаний розчин</option>
+                                    <option value="0.07">Мінеральна вата</option>
+                                    <option value="0.052">Пінопласт</option>
+                                    <option value="0.06">Пінополістирол</option>
+                                    <option value="0.21">Гіпсокартон</option>
+                                    <option value="0.18">Деревина</option>
+                                    <option value="0.18">Фанера</option>
+                                    <option value="0.19">ДВП</option>
+                                    <option value="0.19">ДСП</option>
+                                    <option value="0.81">Суцільна керамічна цегла</option>
+                                    <option value="0.87">Силікатна цегла</option>
+                                    <option value="0.14">Porotherm P+W на термоіз. розчині</option>
+                                </select>
+
+                                </td>
+                            <tr>
+                                <td class="text-start">
+                                    <label for="firstWallLayerThickness">Товщина, см:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="firstWallLayerThickness" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggleWall2Form()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton2WallLayer">+</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">другий шар:</h4>
+                        </div>
+                    </div>
+                    <div id="secondWallLayer" style="display: none;">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td class="text-start">
+                                    <label for="secondMaterialsWallLayer">Матеріали:</label>
+                                </td>
+                                <td class="text-end">
+                                   @* @Html.DropDownList("secondMaterialsWallLayer", ViewBag.Materials as IEnumerable<SelectListItem>, new {@class = "custom-select" })*@
+                                <select class="custom-select" id="secondMaterialsWallLayer" name="secondMaterialsWallLayer">
+                                    <option value="0">Виберіть матеріал</option>
+                                    <option value="2.1">Бетон</option>
+                                    <option value="2.04">Залізобетон</option>
+                                    <option value="0.47">Пінобетон 1000 кг/м.куб.</option>
+                                    <option value="0.37">Пінобетон 800 кг/м.куб.</option>
+                                    <option value="0.26">Пінобетон 600 кг/м.куб.</option>
+                                    <option value="0.125">Газоблок D400 Aeroc</option>
+                                    <option value="0.81">Шлакобетон</option>
+                                    <option value="0.64">Пустотіла керамічна цегла</option>
+                                    <option value="0.93">Цементно-піщаний розчин</option>
+                                    <option value="0.07">Мінеральна вата</option>
+                                    <option value="0.052">Пінопласт</option>
+                                    <option value="0.06">Пінополістирол</option>
+                                    <option value="0.21">Гіпсокартон</option>
+                                    <option value="0.18">Деревина</option>
+                                    <option value="0.18">Фанера</option>
+                                    <option value="0.19">ДВП</option>
+                                    <option value="0.19">ДСП</option>
+                                    <option value="0.81">Суцільна керамічна цегла</option>
+                                    <option value="0.87">Силікатна цегла</option>
+                                    <option value="0.14">Porotherm P+W на термоіз. розчині</option>
+                                </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td text-start>
+                                    <label for="secondWallLayerThickness">Товщина, см:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="secondWallLayerThickness" />
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggleWall3Form()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton3WallLayer">+</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">третій шар:</h4>
+                        </div>
+                    </div>
+                    <div id="thirdWallLayer" style="display: none;">
+                        <table class="table table-custom-top mx-auto mb-0">
+                            <tr>
+                                <td>
+                                    <label for="thirdMaterialsWallLayer">Матеріали:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("thirdMaterialsWallLayer", ViewBag.Materials as IEnumerable<SelectListItem>, new {@class = "custom-select" })*@
+                                <select class="custom-select" id="thirdMaterialsWallLayer" name="thirdMaterialsWallLayer">
+                                    <option value="0">Виберіть матеріал</option>
+                                    <option value="2.1">Бетон</option>
+                                    <option value="2.04">Залізобетон</option>
+                                    <option value="0.47">Пінобетон 1000 кг/м.куб.</option>
+                                    <option value="0.37">Пінобетон 800 кг/м.куб.</option>
+                                    <option value="0.26">Пінобетон 600 кг/м.куб.</option>
+                                    <option value="0.125">Газоблок D400 Aeroc</option>
+                                    <option value="0.81">Шлакобетон</option>
+                                    <option value="0.64">Пустотіла керамічна цегла</option>
+                                    <option value="0.93">Цементно-піщаний розчин</option>
+                                    <option value="0.07">Мінеральна вата</option>
+                                    <option value="0.052">Пінопласт</option>
+                                    <option value="0.06">Пінополістирол</option>
+                                    <option value="0.21">Гіпсокартон</option>
+                                    <option value="0.18">Деревина</option>
+                                    <option value="0.18">Фанера</option>
+                                    <option value="0.19">ДВП</option>
+                                    <option value="0.19">ДСП</option>
+                                    <option value="0.81">Суцільна керамічна цегла</option>
+                                    <option value="0.87">Силікатна цегла</option>
+                                    <option value="0.14">Porotherm P+W на термоіз. розчині</option>
+                                </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="thirdWallLayerThickness">Товщина, см:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="thirdWallLayerThickness" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-11 result-button-block">
+                    <div>
+                        <p id="wallButtonErrorMessage" style="color: red;"></p>
+                    </div>
+
+                    <div>
+                        <button id="resultWallButton" type="button" class="btn result-wall-button btn-success">Підрахувати</button>
+                    </div>
+                    <div class="mt-3 mb-3 col-12 mx-auto">
+                        <div class="horizontal-line"></div>
+                        <div class=" col-12 text-center custom-result">
+                            <p style="line-height:50px; font-weight:bold;">Результат:<span id="resultWallButtonText" style="margin-left:10px; background-color:deepskyblue; border-radius:5px;"></span></p>
+                        </div>
+                        <div class="horizontal-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div id="showHideWallForm" onclick="toggleParentFloorForm()" class="parent-plus-minus-button mx-auto">
+            <div class="plus-minus-button">
+                <p id="plusMinusButtonFloor">+</p>
+            </div>
+            <div class="plus-minus-button-title">
+                <h2 class="text-center">Тепловитрати через підлогу</h2>
+            </div>
+        </div>
+
+
+        <div id="parentFloorLayer" style="display: none;">
+            <div class="topPartOfTable mx-auto">
+                <table class="table table-custom-top  mx-auto mb-0">
+                    <tr>
+                        <td>
+                            <label for="floorType">Тип підлоги:</label>
+                        </td>
+                        <td class="col text-end">
+                            <select id="floorType" class="custom-select custom-select-1">
+                                <option value="6">На ґрунті</option>
+                                <option value="17">Над неопалюваним підвалом</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="floorArea">Площа підлоги, м&sup2:</label>
+                        </td>
+                        <td class="col text-end">
+                            <input type="number" id="floorArea" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="topPartOfTable d-flex flex-column align-items-end">
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggleFloor1Form()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton1FloorLayer">-</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">перший шар:</h4>
+                        </div>
+                    </div>
+
+                    <div id="firstFloorLayer">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td class="text-start">
+                                    <label for="firstMaterialsFloorLayer">Матеріали:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("firstMaterialsFloorLayer", ViewBag.Materials as IEnumerable<SelectListItem>, new {@class = "custom-select" })*@
+                                <select class="custom-select" id="firstMaterialsFloorLayer" name="firstMaterialsFloorLayer">
+                                    <option value="0">Виберіть матеріал</option>
+                                    <option value="2.1">Бетон</option>
+                                    <option value="2.04">Залізобетон</option>
+                                    <option value="0.47">Пінобетон 1000 кг/м.куб.</option>
+                                    <option value="0.37">Пінобетон 800 кг/м.куб.</option>
+                                    <option value="0.26">Пінобетон 600 кг/м.куб.</option>
+                                    <option value="0.125">Газоблок D400 Aeroc</option>
+                                    <option value="0.81">Шлакобетон</option>
+                                    <option value="0.64">Пустотіла керамічна цегла</option>
+                                    <option value="0.93">Цементно-піщаний розчин</option>
+                                    <option value="0.07">Мінеральна вата</option>
+                                    <option value="0.052">Пінопласт</option>
+                                    <option value="0.06">Пінополістирол</option>
+                                    <option value="0.21">Гіпсокартон</option>
+                                    <option value="0.18">Деревина</option>
+                                    <option value="0.18">Фанера</option>
+                                    <option value="0.19">ДВП</option>
+                                    <option value="0.19">ДСП</option>
+                                    <option value="0.81">Суцільна керамічна цегла</option>
+                                    <option value="0.87">Силікатна цегла</option>
+                                    <option value="0.14">Porotherm P+W на термоіз. розчині</option>
+                                </select>
+                                </td>
+                            <tr>
+                                <td class="text-start">
+                                    <label for="firstFloorLayerThickness">Товщина, см:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="firstFloorLayerThickness" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggleFloor2Form()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton2FloorLayer">+</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">другий шар:</h4>
+                        </div>
+                    </div>
+                    <div id="secondFloorLayer" style="display: none;">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td class="text-start">
+                                    <label for="secondMaterialsFloorLayer">Матеріали:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("secondMaterialsFloorLayer", ViewBag.Materials as IEnumerable<SelectListItem>, new {@class = "custom-select" })*@
+                                <select class="custom-select" id="secondMaterialsFloorLayer" name="secondMaterialsFloorLayer">
+                                    <option value="0">Виберіть матеріал</option>
+                                    <option value="2.1">Бетон</option>
+                                    <option value="2.04">Залізобетон</option>
+                                    <option value="0.47">Пінобетон 1000 кг/м.куб.</option>
+                                    <option value="0.37">Пінобетон 800 кг/м.куб.</option>
+                                    <option value="0.26">Пінобетон 600 кг/м.куб.</option>
+                                    <option value="0.125">Газоблок D400 Aeroc</option>
+                                    <option value="0.81">Шлакобетон</option>
+                                    <option value="0.64">Пустотіла керамічна цегла</option>
+                                    <option value="0.93">Цементно-піщаний розчин</option>
+                                    <option value="0.07">Мінеральна вата</option>
+                                    <option value="0.052">Пінопласт</option>
+                                    <option value="0.06">Пінополістирол</option>
+                                    <option value="0.21">Гіпсокартон</option>
+                                    <option value="0.18">Деревина</option>
+                                    <option value="0.18">Фанера</option>
+                                    <option value="0.19">ДВП</option>
+                                    <option value="0.19">ДСП</option>
+                                    <option value="0.81">Суцільна керамічна цегла</option>
+                                    <option value="0.87">Силікатна цегла</option>
+                                    <option value="0.14">Porotherm P+W на термоіз. розчині</option>
+                                </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td text-start>
+                                    <label for="secondFloorLayerThickness">Товщина, см:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="secondFloorLayerThickness" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggleFloor3Form()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton3FloorLayer">+</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">третій шар:</h4>
+                        </div>
+                    </div>
+                    <div id="thirdFloorLayer" style="display: none;">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td>
+                                    <label for="thirdMaterialsFloorLayer">Матеріали:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("thirdMaterialsFloorLayer", ViewBag.Materials as IEnumerable<SelectListItem>,  new {@class = "custom-select" })*@
+                                <select class="custom-select" id="thirdMaterialsFloorLayer" name="thirdMaterialsFloorLayer">
+                                    <option value="0">Виберіть матеріал</option>
+                                    <option value="2.1">Бетон</option>
+                                    <option value="2.04">Залізобетон</option>
+                                    <option value="0.47">Пінобетон 1000 кг/м.куб.</option>
+                                    <option value="0.37">Пінобетон 800 кг/м.куб.</option>
+                                    <option value="0.26">Пінобетон 600 кг/м.куб.</option>
+                                    <option value="0.125">Газоблок D400 Aeroc</option>
+                                    <option value="0.81">Шлакобетон</option>
+                                    <option value="0.64">Пустотіла керамічна цегла</option>
+                                    <option value="0.93">Цементно-піщаний розчин</option>
+                                    <option value="0.07">Мінеральна вата</option>
+                                    <option value="0.052">Пінопласт</option>
+                                    <option value="0.06">Пінополістирол</option>
+                                    <option value="0.21">Гіпсокартон</option>
+                                    <option value="0.18">Деревина</option>
+                                    <option value="0.18">Фанера</option>
+                                    <option value="0.19">ДВП</option>
+                                    <option value="0.19">ДСП</option>
+                                    <option value="0.81">Суцільна керамічна цегла</option>
+                                    <option value="0.87">Силікатна цегла</option>
+                                    <option value="0.14">Porotherm P+W на термоіз. розчині</option>
+                                </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="thirdFloorLayerThickness">Товщина, см:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="thirdFloorLayerThickness" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-11 result-button-block">
+                    <div>
+                        <p id="floorButtonErrorMessage" style="color: red;"></p>
+                    </div>
+
+                    <div>
+                        <button id="resultFloorButton" type="button" class="btn result-wall-button btn-success">Підрахувати</button>
+                    </div>
+
+                    <div class="mt-3 mb-3 col-12 mx-auto">
+                        <div class="horizontal-line"></div>
+                        <div class=" col-12 text-center custom-result">
+                            <p style="line-height:50px; font-weight:bold;">Результат:<span id="resultFloorButtonText" style="margin-left:10px;  background-color:deepskyblue; border-radius:5px;"></span></p>
+                        </div>
+                        <div class="horizontal-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <div onclick="toggleParentWindowForm()" class="parent-plus-minus-button mx-auto">
+            <div class="plus-minus-button">
+                <p id="plusMinusWindowButton">+</p>
+            </div>
+            <div class="plus-minus-button-title">
+                <h2 class="text-center">Тепловитрати через вікна</h2>
+            </div>
+        </div>
+        <div id="parentWindowLayer" style="display: none;">
+            <div class="topPartOfTable d-flex flex-column align-items-end">
+
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggle1WindowForm()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton1WindowLayer">-</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">перший тип вікон:</h4>
+                        </div>
+                    </div>
+
+                    <div id="firstWindowLayer">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td class="text-start">
+                                    <label for="firstMaterialsWindowLayer">Тип:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("firstMaterialsWindowLayer", ViewBag.Windows as IEnumerable<SelectListItem>, new {@class = "custom-select" })*@
+                                <select class="custom-select" id="firstMaterialsWindowLayer" name="firstMaterialsWindowLayer">
+                                    <option value="37">Звичайне з подвійними рамами </option>
+                                    <option value="32">Склопакет 4-16-4 </option>
+                                    <option value="34">Склопакет 4-Ar16-4 </option>
+                                    <option value="53">Склопакет 4-16-4K </option>
+                                    <option value="59">Склопакет 4-Ar16-4K </option>
+                                    <option value="42">Двокамерний склопакет 4-6-4-6-4 </option>
+                                    <option value="44">Двокамерний склопакет 4-Ar6-4-Ar6-4 </option>
+                                    <option value="53">Двокамерний склопакет 4-6-4-6-4K </option>
+                                    <option value="60">Двокамерний склопакет 4-Ar6-4-Ar6-4K </option>
+                                    <option value="45">Двокамерний склопакет 4-8-4-8-4 </option>
+                                    <option value="47">Двокамерний склопакет 4-Ar8-4-Ar8-4 </option>
+                                    <option value="55">Двокамерний склопакет 4-8-4-8-4K </option>
+                                    <option value="67">Двокамерний склопакет 4-Ar8-4-Ar8-4K </option>
+                                    <option value="47">Двокамерний склопакет 4-10-4-10-4 </option>
+                                    <option value="49">Двокамерний склопакет 4-Ar10-4-Ar10-4 </option>
+                                    <option value="58">Двокамерний склопакет 4-10-4-10-4K </option>
+                                    <option value="65">Двокамерний склопакет 4-Ar10-4-Ar10-4K </option>
+                                    <option value="49">Двокамерний склопакет 4-12-4-12-4 </option>
+                                    <option value="52">Двокамерний склопакет 4-Ar12-4-Ar12-4 </option>
+                                    <option value="61">Двокамерний склопакет 4-12-4-12-4K </option>
+                                    <option value="68">Двокамерний склопакет 4-Ar12-4-Ar12-4K </option>
+                                    <option value="52">Двокамерний склопакет 4-16-4-16-4 </option>
+                                    <option value="55">Двокамерний склопакет 4-Ar16-4-Ar16-4 </option>
+                                    <option value="62">Двокамерний склопакет 4-16-4-16-4K </option>
+                                    <option value="72">Двокамерний склопакет 4-Ar16-4-Ar16-4K </option>
+                                </select>
+                                </td>
+                            <tr>
+                                <td class="text-start">
+                                    <label for="firstWindowArea">Площа, м&sup2:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="firstWindowArea" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggle2WindowForm()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton2WindowLayer">+</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">другий тип вікон:</h4>
+                        </div>
+                    </div>
+
+                    <div id="secondWindowLayer" style="display: none;">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td class="text-start">
+                                    <label for="secondMaterialsWindowLayer">Тип:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("secondMaterialsWindowLayer", ViewBag.Windows as IEnumerable<SelectListItem>, new {@class = "custom-select" })*@
+                                <select class="custom-select" id="secondMaterialsWindowLayer" name="secondMaterialsWindowLayer">
+                                    <option value="37">Звичайне з подвійними рамами </option>
+                                    <option value="32">Склопакет 4-16-4 </option>
+                                    <option value="34">Склопакет 4-Ar16-4 </option>
+                                    <option value="53">Склопакет 4-16-4K </option>
+                                    <option value="59">Склопакет 4-Ar16-4K </option>
+                                    <option value="42">Двокамерний склопакет 4-6-4-6-4 </option>
+                                    <option value="44">Двокамерний склопакет 4-Ar6-4-Ar6-4 </option>
+                                    <option value="53">Двокамерний склопакет 4-6-4-6-4K </option>
+                                    <option value="60">Двокамерний склопакет 4-Ar6-4-Ar6-4K </option>
+                                    <option value="45">Двокамерний склопакет 4-8-4-8-4 </option>
+                                    <option value="47">Двокамерний склопакет 4-Ar8-4-Ar8-4 </option>
+                                    <option value="55">Двокамерний склопакет 4-8-4-8-4K </option>
+                                    <option value="67">Двокамерний склопакет 4-Ar8-4-Ar8-4K </option>
+                                    <option value="47">Двокамерний склопакет 4-10-4-10-4 </option>
+                                    <option value="49">Двокамерний склопакет 4-Ar10-4-Ar10-4 </option>
+                                    <option value="58">Двокамерний склопакет 4-10-4-10-4K </option>
+                                    <option value="65">Двокамерний склопакет 4-Ar10-4-Ar10-4K </option>
+                                    <option value="49">Двокамерний склопакет 4-12-4-12-4 </option>
+                                    <option value="52">Двокамерний склопакет 4-Ar12-4-Ar12-4 </option>
+                                    <option value="61">Двокамерний склопакет 4-12-4-12-4K </option>
+                                    <option value="68">Двокамерний склопакет 4-Ar12-4-Ar12-4K </option>
+                                    <option value="52">Двокамерний склопакет 4-16-4-16-4 </option>
+                                    <option value="55">Двокамерний склопакет 4-Ar16-4-Ar16-4 </option>
+                                    <option value="62">Двокамерний склопакет 4-16-4-16-4K </option>
+                                    <option value="72">Двокамерний склопакет 4-Ar16-4-Ar16-4K </option>
+                                </select>
+                                </td>
+                            <tr>
+                                <td class="text-start">
+                                    <label for="secondWindowArea">Площа, м&sup2:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="secondWindowArea" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggle3WindowForm()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton3WindowLayer">+</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">третій тип вікон:</h4>
+                        </div>
+                    </div>
+
+                    <div id="thirdWindowLayer" style="display: none;">
+                        <table class="table table-custom-top  mx-auto  mb-0">
+                            <tr>
+                                <td class="text-start">
+                                    <label for="thirdMaterialsWindowLayer">Тип:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("thirdMaterialsWindowLayer", ViewBag.Windows as IEnumerable<SelectListItem>, new {@class = "custom-select" })*@
+                                <select class="custom-select" id="thirdMaterialsWindowLayer" name="thirdMaterialsWindowLayer">
+                                    <option value="37">Звичайне з подвійними рамами </option>
+                                    <option value="32">Склопакет 4-16-4 </option>
+                                    <option value="34">Склопакет 4-Ar16-4 </option>
+                                    <option value="53">Склопакет 4-16-4K </option>
+                                    <option value="59">Склопакет 4-Ar16-4K </option>
+                                    <option value="42">Двокамерний склопакет 4-6-4-6-4 </option>
+                                    <option value="44">Двокамерний склопакет 4-Ar6-4-Ar6-4 </option>
+                                    <option value="53">Двокамерний склопакет 4-6-4-6-4K </option>
+                                    <option value="60">Двокамерний склопакет 4-Ar6-4-Ar6-4K </option>
+                                    <option value="45">Двокамерний склопакет 4-8-4-8-4 </option>
+                                    <option value="47">Двокамерний склопакет 4-Ar8-4-Ar8-4 </option>
+                                    <option value="55">Двокамерний склопакет 4-8-4-8-4K </option>
+                                    <option value="67">Двокамерний склопакет 4-Ar8-4-Ar8-4K </option>
+                                    <option value="47">Двокамерний склопакет 4-10-4-10-4 </option>
+                                    <option value="49">Двокамерний склопакет 4-Ar10-4-Ar10-4 </option>
+                                    <option value="58">Двокамерний склопакет 4-10-4-10-4K </option>
+                                    <option value="65">Двокамерний склопакет 4-Ar10-4-Ar10-4K </option>
+                                    <option value="49">Двокамерний склопакет 4-12-4-12-4 </option>
+                                    <option value="52">Двокамерний склопакет 4-Ar12-4-Ar12-4 </option>
+                                    <option value="61">Двокамерний склопакет 4-12-4-12-4K </option>
+                                    <option value="68">Двокамерний склопакет 4-Ar12-4-Ar12-4K </option>
+                                    <option value="52">Двокамерний склопакет 4-16-4-16-4 </option>
+                                    <option value="55">Двокамерний склопакет 4-Ar16-4-Ar16-4 </option>
+                                    <option value="62">Двокамерний склопакет 4-16-4-16-4K </option>
+                                    <option value="72">Двокамерний склопакет 4-Ar16-4-Ar16-4K </option>
+                                </select>
+                                </td>
+                            <tr>
+                                <td class="text-start">
+                                    <label for="thirdWindowArea">Площа, м&sup2:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="thirdWindowArea" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-11 result-button-block">
+                    <div>
+                        <p id="windowButtonErrorMessage" style="color: red;"></p>
+                    </div>
+
+                    <div>
+                        <button id="resultWindowButton" type="button" class="btn result-wall-button btn-success">Підрахувати</button>
+                    </div>
+
+                    <div class="mt-3 mb-3 col-12 mx-auto">
+                        <div class="horizontal-line"></div>
+                        <div class=" col-12 text-center custom-result">
+                            <p style="line-height:50px; font-weight:bold;">Результат:<span id="resultWindowButtonText" style="margin-left:10px; background-color:deepskyblue; border-radius:5px;"></span></p>
+                        </div>
+                        <div class="horizontal-line"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div onclick="toggleParentCeilingForm()" class="parent-plus-minus-button mx-auto">
+            <div class="plus-minus-button">
+                <p id="plusMinusButtonCeiling">+</p>
+            </div>
+            <div class="plus-minus-button-title">
+                <h2 class="text-center">Тепловитрати через дах</h2>
+            </div>
+        </div>
+
+
+        <div id="parentCeilingLayer" style="display: none;">
+            <div class="topPartOfTable mx-auto">
+                <table class="table table-custom-top mx-auto mb-0">
+                    <tr>
+                        <td>
+                            <label for="ceilingType">Тип стелі:</label>
+                        </td>
+                        <td class="col text-end">
+                            <select id="ceilingType" class="custom-select custom-select-1">
+                                <option value="23">Стеля щільно прилягає до даху</option>
+                                <option value="12">Стеля під неопалюваним горищем</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="ceilingArea">Площа стелі, м&sup2:</label>
+                        </td>
+                        <td class="col text-end">
+                            <input type="number" id="ceilingArea" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="topPartOfTable d-flex flex-column align-items-end">
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggle1CeilingForm()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton1CeilingLayer">-</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">перший шар:</h4>
+                        </div>
+                    </div>
+
+                    <div id="firstCeilingLayer">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td class="text-start">
+                                    <label for="firstMaterialsCeilingLayer">Матеріали:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("firstMaterialsCeilingLayer", ViewBag.Materials as IEnumerable<SelectListItem>, new {@class = "custom-select" })*@
+                                <select class="custom-select" id="firstMaterialsCeilingLayer" name="firstMaterialsCeilingLayer">
+                                    <option value="0">Виберіть матеріал</option>
+                                    <option value="2.1">Бетон</option>
+                                    <option value="2.04">Залізобетон</option>
+                                    <option value="0.47">Пінобетон 1000 кг/м.куб.</option>
+                                    <option value="0.37">Пінобетон 800 кг/м.куб.</option>
+                                    <option value="0.26">Пінобетон 600 кг/м.куб.</option>
+                                    <option value="0.125">Газоблок D400 Aeroc</option>
+                                    <option value="0.81">Шлакобетон</option>
+                                    <option value="0.64">Пустотіла керамічна цегла</option>
+                                    <option value="0.93">Цементно-піщаний розчин</option>
+                                    <option value="0.07">Мінеральна вата</option>
+                                    <option value="0.052">Пінопласт</option>
+                                    <option value="0.06">Пінополістирол</option>
+                                    <option value="0.21">Гіпсокартон</option>
+                                    <option value="0.18">Деревина</option>
+                                    <option value="0.18">Фанера</option>
+                                    <option value="0.19">ДВП</option>
+                                    <option value="0.19">ДСП</option>
+                                    <option value="0.81">Суцільна керамічна цегла</option>
+                                    <option value="0.87">Силікатна цегла</option>
+                                    <option value="0.14">Porotherm P+W на термоіз. розчині</option>
+                                </select>
+                                </td>
+                            <tr>
+                                <td class="text-start">
+                                    <label for="firstCeilingLayerThickness">Товщина, см:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="firstCeilingLayerThickness" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggle2CeilingForm()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton2CeilingLayer">+</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">другий шар:</h4>
+                        </div>
+                    </div>
+                    <div id="secondCeilingLayer" style="display: none;">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td class="text-start">
+                                    <label for="secondMaterialsCeilingLayer">Матеріали:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("secondMaterialsCeilingLayer", ViewBag.Materials as IEnumerable<SelectListItem>,  new {@class = "custom-select" })*@
+                                <select class="custom-select" id="secondMaterialsCeilingLayer" name="secondMaterialsCeilingLayer">
+                                    <option value="0">Виберіть матеріал</option>
+                                    <option value="2.1">Бетон</option>
+                                    <option value="2.04">Залізобетон</option>
+                                    <option value="0.47">Пінобетон 1000 кг/м.куб.</option>
+                                    <option value="0.37">Пінобетон 800 кг/м.куб.</option>
+                                    <option value="0.26">Пінобетон 600 кг/м.куб.</option>
+                                    <option value="0.125">Газоблок D400 Aeroc</option>
+                                    <option value="0.81">Шлакобетон</option>
+                                    <option value="0.64">Пустотіла керамічна цегла</option>
+                                    <option value="0.93">Цементно-піщаний розчин</option>
+                                    <option value="0.07">Мінеральна вата</option>
+                                    <option value="0.052">Пінопласт</option>
+                                    <option value="0.06">Пінополістирол</option>
+                                    <option value="0.21">Гіпсокартон</option>
+                                    <option value="0.18">Деревина</option>
+                                    <option value="0.18">Фанера</option>
+                                    <option value="0.19">ДВП</option>
+                                    <option value="0.19">ДСП</option>
+                                    <option value="0.81">Суцільна керамічна цегла</option>
+                                    <option value="0.87">Силікатна цегла</option>
+                                    <option value="0.14">Porotherm P+W на термоіз. розчині</option>
+                                </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td text-start>
+                                    <label for="secondCeilingLayerThickness">Товщина, см:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="secondCeilingLayerThickness" />
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="layers-plus-minus-button mx-auto" onclick="toggle3CeilingForm()">
+                        <div class="inner-plus-minus-button">
+                            <p id="plusMinusButton3CeilingLayer">+</p>
+                        </div>
+                        <div class="inner-plus-minus-button-title">
+                            <h4 class="text-center">третій шар:</h4>
+                        </div>
+                    </div>
+                    <div id="thirdCeilingLayer" style="display: none;">
+                        <table class="table table-custom-top mx-auto  mb-0">
+                            <tr>
+                                <td>
+                                    <label for="thirdMaterialsCeilingLayer">Матеріали:</label>
+                                </td>
+                                <td class="text-end">
+                                    @*@Html.DropDownList("thirdMaterialsCeilingLayer", ViewBag.Materials as IEnumerable<SelectListItem>,  new {@class = "custom-select" })*@
+                                <select class="custom-select" id="thirdMaterialsCeilingLayer" name="thirdMaterialsCeilingLayer">
+                                    <option value="0">Виберіть матеріал</option>
+                                    <option value="2.1">Бетон</option>
+                                    <option value="2.04">Залізобетон</option>
+                                    <option value="0.47">Пінобетон 1000 кг/м.куб.</option>
+                                    <option value="0.37">Пінобетон 800 кг/м.куб.</option>
+                                    <option value="0.26">Пінобетон 600 кг/м.куб.</option>
+                                    <option value="0.125">Газоблок D400 Aeroc</option>
+                                    <option value="0.81">Шлакобетон</option>
+                                    <option value="0.64">Пустотіла керамічна цегла</option>
+                                    <option value="0.93">Цементно-піщаний розчин</option>
+                                    <option value="0.07">Мінеральна вата</option>
+                                    <option value="0.052">Пінопласт</option>
+                                    <option value="0.06">Пінополістирол</option>
+                                    <option value="0.21">Гіпсокартон</option>
+                                    <option value="0.18">Деревина</option>
+                                    <option value="0.18">Фанера</option>
+                                    <option value="0.19">ДВП</option>
+                                    <option value="0.19">ДСП</option>
+                                    <option value="0.81">Суцільна керамічна цегла</option>
+                                    <option value="0.87">Силікатна цегла</option>
+                                    <option value="0.14">Porotherm P+W на термоіз. розчині</option>
+                                </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="thirdCeilingLayerThickness">Товщина, см:</label>
+                                </td>
+                                <td class="text-end">
+                                    <input type="number" id="thirdCeilingLayerThickness" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-11 result-button-block">
+                    <div>
+                        <p id="ceilingButtonErrorMessage" style="color: red;"></p>
+                    </div>
+
+                    <div>
+                        <button id="resultCeilingButton" type="button" class="btn result-wall-button btn-success">Підрахувати</button>
+                    </div>
+
+                    <div class="mt-3 mb-3 col-12 mx-auto">
+                        <div class="horizontal-line"></div>
+                        <div class=" col-12 text-center custom-result">
+                            <p style="line-height:50px; font-weight:bold;">Результат:<span id="resultCeilingButtonText" style="margin-left:10px; background-color:deepskyblue; border-radius:5px;"></span></p>
+                        </div>
+                        <div class="horizontal-line"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div onclick="toggleParentInfiltrForm()" class="parent-plus-minus-button mx-auto">
+            <div class="plus-minus-button">
+                <p id="plusMinusButtonInfiltr">+</p>
+            </div>
+            <div class="plus-minus-button-title">
+                <h2 class="text-center">Тепловтрати на інфільтрацію</h2>
+            </div>
+        </div>
+
+        <div id="parentInfiltrLayer" style="display: none;">
+            <div class="topPartOfTable mx-auto">
+                <table class="table table-custom-top mx-auto mb-0">
+                    <tr>
+                        <td>
+                            <label for="infiltrArea">Житлова площа, м&sup2:</label>
+                        </td>
+                        <td class="col text-end">
+                            <input type="number" id="infiltrArea" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="topPartOfTable d-flex flex-column align-items-end">
+
+                <div class="col-11 result-button-block">
+                    <div>
+                        <p id="infiltrButtonErrorMessage" style="color: red;"></p>
+                    </div>
+                    <div>
+                        <button id="resultInfiltrButton" type="button" class="btn result-wall-button btn-success">Підрахувати</button>
+                    </div>
+
+                    <div class="mt-3 mb-3 col-12 mx-auto">
+                        <div class="horizontal-line"></div>
+                        <div class=" col-12 text-center custom-result">
+                            <p style="line-height:50px; font-weight:bold;">Результат:<span id="resultInfiltrButtonText" style="margin-left:10px; background-color:deepskyblue; border-radius:5px;"></span></p>
+                        </div>
+                        <div class="horizontal-line"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="mt-5">
+            <p style="font-weight:bold;">Результати розрахурків:</p>
+            <p>-Тепловитрати через стіни:<span id="resultWallButtonTextBottom" style="margin-left:10px"></span></p>
+            <p>-Тепловитрати через підлогу:<span id="resultFloorButtonTextBottom" style="margin-left:10px"></span></p>
+            <p>-Тепловитрати через вікна:<span id="resultWindowButtonTextBottom" style="margin-left:10px"></span></p>
+            <p>-Тепловитрати через дах:<span id="resultCeilingButtonTextBottom" style="margin-left:10px"></span></p>
+            <p>-Тепловитрати на інфільтрацію:<span id="resultInfiltrButtonTextBottom" style="margin-left:10px"></span></p>
+        </div>
+        <div class="general-result-heatloss ">
+            <p>Загальні тепловитрати:<span id="generalHeatLossResult" style="margin-left:10px;"></span></p>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+<script src="~/js/heatLossCalculator.js"></script>
+<script src="~/js/heatLossCalculator/wall.js"></script>
+<script src="~/js/heatLossCalculator/ceiling.js"></script>
+<script src="~/js/heatLossCalculator/floor.js"></script>
+<script src="~/js/heatLossCalculator/window.js"></script>
+<script src="~/js/heatLossCalculator/infiltration.js"></script>
+
+
+
+
+@*<script>
+    function toggleForm() {
+    var form = document.getElementById("myForm");
+    if (form.style.display === "none") {
+    form.style.display = "block";
+    } else {
+    form.style.display = "none";
+    }
+    }
+    </script>
+
+    <button onclick="toggleForm()">Нажми меня</button>
+
+    <form id="myForm" style="display: none;">
+    <p>Write down some number</p>
+    <input type="number" />
+    </form>*@
+
+@*запоминание введенного значения в поле ввода*@
+@*<input type="text" name="inputValue" id="inputValue" />
+
+    <script>
+    // Проверка наличия сохраненного значения при загрузке страницы
+    window.onload = function () {
+    var savedValue = localStorage.getItem("inputValue");
+    if (savedValue) {
+    document.getElementById("inputValue").value = savedValue;
+    }
+    };
+
+    // Сохранение значения поля в локальное хранилище при изменении его значения
+    document.getElementById("inputValue").addEventListener("input", function () {
+    var inputValue = document.getElementById("inputValue").value;
+    localStorage.setItem("inputValue", inputValue);
+    });
+    </script>*@
+@*<div >
+    @Html.DropDownList("city", ViewBag.Cities as IEnumerable<SelectListItem>, "Choose a city")
+    </div>
+    <input type="number" id="temperature" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+    $('#city').change(function() {
+    var selectedTemperature = $(this).find(':selected').val();
+    $('#temperature').val(selectedTemperature);
+    });
+    });
+    </script>*@
+
+

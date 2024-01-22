@@ -1,0 +1,192 @@
+﻿@model Customer
+<h1 class="text-center">
+    @Model.Surname @Model.Name @Model.SecondName
+    @if (Model.Status == "в роботі")
+    {
+        <span class="bg-success" style="color:white; border-radius:10px; font-size:20px; padding:5px;">в роботі</span>
+    }
+    else
+    {
+        <span class="bg-danger" style="color:white; border-radius:10px; font-size:20px; padding:5px;">завершений</span>
+    }
+</h1>
+<style>
+    .info p {
+        font-weight: 700;
+    }
+
+    .info span {
+        font-size: 0.9em;
+        font-weight: 400;
+    }
+
+    .comment-block  {
+        margin-top:40px;
+        
+    }
+
+    .customer-comment-block {
+        
+        font-size: 0.8em;
+        /*background-color: aquamarine;*/
+        border-radius: 10px;
+        padding: 10px;
+        padding-top:20px;
+        /*box-shadow: 10px 10px 10px gray;*/
+        border: 1px solid gray;
+        height: fit-content;
+        color: gray;
+        
+    }
+    .buttons {
+        display:flex;
+        justify-content:space-between;
+        padding:40px;
+    }
+    .custom-button {
+        width:30%
+    }
+
+    .custom-button button {
+        width: 100%
+    }
+    .delete-form-button {
+        width:30%;
+    }
+    .custom-delete-button button {
+        width:100%;
+    }
+</style>
+<div class="info">
+    @if (Model.Phone != null && Model.Phone != "")
+    {
+        <p>Телефон: <span>@Model.Phone</span></p>
+    }
+    @if (Model.Address != null && Model.Address != "")
+    {
+        <p>Адреса: <span>@Model.Address</span></p>
+    }
+    @if (Model.Area != null)
+    {
+        <p>Площа будинку: <span>@Model.Area м&sup2</span></p>
+    }
+    @if (Model.HeatPumpType != null && Model.HeatPumpType != "")
+    {
+        <p>Тип теплового насосу: <span>@Model.HeatPumpType</span></p>
+    }
+    @if (Model.SelectedHeatPump?.Name != null && Model.SelectedHeatPump?.Name != "")
+    {
+        <p>Модель теплового насосу: <span>@Model.SelectedHeatPump?.Name</span></p>
+    }
+    @if (Model.SelectedHeatPump?.Power != null)
+    {
+        <p>Потужність: <span>@Model.SelectedHeatPump?.Power</span></p>
+    }
+    @if (Model.BuyDate != null && Model.BuyDate != "")
+    {
+        <p>Дата купівлі: <span>@Model.BuyDate</span></p>
+    }
+    @if (Model.InstallDate != null && Model.InstallDate != "")
+    {
+        <p>Дата монтажу (початок дії гарантії): <span>@Model.InstallDate</span></p>
+    }
+    @if (Model.Price != null)
+    {
+        <p>Вартість: <span>@Model.Price</span></p>
+    }
+    @if (Model.Comment != null && Model.Comment != "")
+    {
+        <div class="comment-block parent" style="position:relative;" id="parent">
+            <p id="absolute1" class="absolute1" style="position:absolute; z-index:2; margin-top:-15px; margin-left:20px; background-color:white; padding:0 10px;">Додаткова інформація про клієнта</p>
+            <div id="absolute2" class="customer-comment-block absolute2" style="position:absolute; z-index:1; width:100%;">
+                <div id="customer-comment" class="customer-comment"></div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const parent = document.getElementById('parent');
+                const absolute1 = document.getElementById('absolute1');
+                const absolute2 = document.getElementById('absolute2');
+
+                const height1 = absolute1.offsetHeight;
+                const height2 = absolute2.offsetHeight;
+                const totalHeight = height1 + height2;
+
+                parent.style.height = `${totalHeight}px`;
+            });
+        </script>
+
+        <script>
+            var clientComment = `@Html.Raw(Model.Comment)`;
+            var clientCommentElement = document.getElementById("customer-comment");
+            if (clientCommentElement) {
+                clientCommentElement.innerHTML = clientComment;
+            }
+        </script>
+    }
+
+
+</div>
+<div class="buttons">
+    <div class="edit-button d-flex justify-content-center align-items-center custom-button">
+        <a type="button" class="btn btn-info mx-auto d-flex " asp-action="Customers" asp-controller="Admin" style="font-weight:700; color:white;">
+            <span class="align-self-center"><img src="~/images/back.png" style="height:21px; margin-right:4px;"/></span>Назад до списку клієнтів
+        </a>
+    </div>
+    <div class="edit-button d-flex justify-content-center custom-button">
+        <button type="button" class="btn btn-success mx-auto d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" style="font-weight:700;">
+            Редагувати
+        </button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabelEdit" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Увага</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Ви дійсно хочете перейти до сторінки редагування клієнта @Model.Name @Model.Surname @Model.SecondName?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ні</button>
+                    <a class="btn btn-success" asp-action="EditCustomer" asp-controller="Admin" asp-route-id="@Model.Id">Так,редагувати</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <form class="delete-form-button" asp-action="DeleteCustomer" asp-controller="Admin" asp-route-id="@Model.Id" method="post">
+        <div class="edit-button d-flex justify-content-center custom-delete-button" style="height:100%;">
+            <button type="button" class="btn btn-danger mx-auto text-bold" style="font-weight:700;" data-bs-toggle="modal" data-bs-target="#exampleModalDelete">
+                Видалити клієнта
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalDelete" tabindex="-1" aria-labelledby="exampleModalLabelDelete" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Увага</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Ви дійсно хочете видалити клієнта @Model.Name @Model.Surname @Model.SecondName ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ні</button>
+                        <button type="submit" class="btn btn-danger">Так,видалити клієнта</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+

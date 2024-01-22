@@ -1,0 +1,20 @@
+﻿h2 {
+    text-align:center;
+    padding-top:50px;
+    padding-bottom:20px;
+}
+.image-cycle {
+    text-align:center;
+}
+img {
+    width:80%;
+}
+
+.text-bold {
+    font-weight:500;
+}
+@media (max-width:500px) {
+    img {
+        width: 100%;
+    }
+}

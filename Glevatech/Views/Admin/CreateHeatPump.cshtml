@@ -1,0 +1,234 @@
+﻿@model HeatPump
+
+<h1>Додати ТН</h1>
+
+<form asp-controller="Admin" asp-action="CreateHeatPump">
+    <div class="pump-input select-input">
+        <label asp-for="@Model.Status">Статус моделі:</label>
+        @Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.HeatPumpStatus as IEnumerable<SelectListItem>, new { id = "statusDropdown" , @class = "statusDropdown" })
+            
+        <script>
+            // Получаем элемент <select>
+            var selectElement = document.getElementById('statusDropdown');
+
+            // Функция для обновления фона при загрузке страницы и изменении выбора
+            function updateBackground() {
+                var selectedOption = selectElement.options[selectElement.selectedIndex];
+                var optionValue = selectedOption.value;
+                var optionClass = '';
+
+                // Определите класс в зависимости от значения опции
+                if (optionValue === 'активний') {
+                    optionClass = 'green-background';
+                } else if (optionValue === 'неактивний') {
+                    optionClass = 'red-background';
+                }
+
+                // Примените класс к выбранной опции
+                selectedOption.className = optionClass;
+
+                // Примените класс к самому <select> для начального состояния
+                selectElement.className = optionClass;
+            }
+
+            // Вызываем функцию при загрузке страницы и при изменении выбора
+            window.addEventListener('load', updateBackground);
+            selectElement.addEventListener('change', updateBackground);
+
+            // Вызываем функцию при загрузке страницы, чтобы установить начальный цвет фона
+            updateBackground();
+        </script>
+    </div>
+    <div class="pump-input select-input">
+    <label asp-for="@Model.Type">Тип моделі:</label>
+    @Html.DropDownList("Type", (IEnumerable<SelectListItem>)ViewBag.HeatPumpType as IEnumerable<SelectListItem>, new { id = "typeDropdown" , @class = "typeDropdown " })
+    </div>
+    <div class="pump-input">
+        <span id="nameError" style="color:red"></span>
+        <span asp-validation-for="@Model.Name" style="color:red;"></span>
+        <label asp-for="Name">Модель</label>
+        <input class="form-control" type="text" asp-for="Name" id="nameInput" />
+    </div>
+    <div class="pump-input">
+        <span id="powerError" style="color:red"></span>
+        <span asp-validation-for="@Model.Power" style="color:red;"></span>
+        <label asp-for="Power">Потужність, кВт</label>
+        <input class="form-control" type="number" asp-for="Power" id="powerInput" />
+    </div>
+    <div class="pump-input">
+        <span id="areaError" style="color:red"></span>
+        <span asp-validation-for="@Model.HeatArea" style="color:red;"></span>
+        <label asp-for="HeatArea">Орієнтовна площа обігріву, м&sup2</label>
+        <input class="form-control" type="number" asp-for="HeatArea" id="areaInput" />
+    </div>
+    <div class="pump-input">
+        <span id="priceError" style="color:red"></span>
+        <span asp-validation-for="@Model.Price" style="color:red;"></span>
+        <label asp-for="Price">Ціна,$</label>
+        <input class="form-control" type="number" asp-for="Price" id="priceInput" />
+    </div>
+    <style>
+        .pump-input {
+            margin-top: 20px;
+        }
+            .pump-input label {
+                font-size: 1.2em;
+                font-weight: 600;
+            }
+
+        .select-input select{
+            border: 1px solid rgb(199, 201, 200);
+            
+            border-radius:3px;
+        }
+
+        .red-background {
+            background-color: rgb(255, 0, 0);
+            font-weight: 700;
+        }
+
+        .green-background {
+            background-color: rgb(87, 230, 0);
+            font-weight: 700;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var nameInput = $("#nameInput");
+            var powerInput = $("#powerInput");
+            var areaInput = $("#areaInput");
+            var priceInput = $("#priceInput");
+            var nameError = $("#nameError");
+            var powerError = $("#powerError");
+            var areaError = $("#areaError");
+            var priceError = $("#priceError");
+            var createButton = $("#createButton");
+            var buttonError = $("#buttonError");
+
+            // Функция для проверки, все ли поля заполнены
+            function areAllFieldsFilled() {
+                return nameInput.val() !== "" && powerInput.val() !== "" && areaInput.val() !== "" && priceInput.val() !== "";
+            }
+
+            // Функция для отображения ошибки для заданного поля
+            function showErrorForField(input, error, message) {
+                error.css("display", "block");
+                error.text(message);
+            }
+
+            // Функция для скрытия ошибки для заданного поля
+            function hideErrorForField(input, error) {
+                error.css("display", "none");
+                error.text("");
+            }
+
+            // Функция для скрытия ошибки "Заповніть всі обов'язкові поля"
+            function hideAllFieldsError() {
+                buttonError.css("display", "none");
+                buttonError.text("");
+            }
+
+            // Обработчики событий input для скрытия сообщений об ошибках при заполнении
+            nameInput.on("input", function () {
+                if (nameInput.val() !== "") {
+                    hideErrorForField(nameInput, nameError);
+                    if (areAllFieldsFilled()) {
+                        hideAllFieldsError();
+                    }
+                }
+            });
+
+            powerInput.on("input", function () {
+                if (powerInput.val() !== "") {
+                    hideErrorForField(powerInput, powerError);
+                    if (areAllFieldsFilled()) {
+                        hideAllFieldsError();
+                    }
+                }
+            });
+
+            areaInput.on("input", function () {
+                if (areaInput.val() !== "") {
+                    hideErrorForField(areaInput, areaError);
+                    if (areAllFieldsFilled()) {
+                        hideAllFieldsError();
+                    }
+                }
+            });
+
+            priceInput.on("input", function () {
+                if (priceInput.val() !== "") {
+                    hideErrorForField(priceInput, priceError);
+                    if (areAllFieldsFilled()) {
+                        hideAllFieldsError();
+                    }
+                }
+            });
+
+            createButton.on("click", function () {
+                var nameValue = nameInput.val();
+                var powerValue = powerInput.val();
+                var areaValue = areaInput.val();
+                var priceValue = priceInput.val();
+                var allFieldsFilled = true;
+
+                if (nameValue === "") {
+                    showErrorForField(nameInput, nameError, "Будь ласка, введіть назву.");
+                    allFieldsFilled = false;
+                }
+
+                if (powerValue === "") {
+                    showErrorForField(powerInput, powerError, "Будь ласка, введіть потужність.");
+                    allFieldsFilled = false;
+                }
+
+                if (areaValue === "") {
+                    showErrorForField(areaInput, areaError, "Будь ласка, введіть площу обігріву.");
+                    allFieldsFilled = false;
+                }
+
+                if (priceValue === "") {
+                    showErrorForField(priceInput, priceError, "Будь ласка, введіть ціну.");
+                    allFieldsFilled = false;
+                }
+
+                if (allFieldsFilled) {
+                    hideAllFieldsError();
+                    $('#exampleModal').modal('show');
+                } else {
+                    buttonError.css("display", "block");
+                    buttonError.text("Заповніть всі обов'язкові поля.");
+                }
+            });
+        });
+    </script>
+    <div class="edit-button  text-center mt-5">
+        @*            <button type="button" class="btn btn-success mx-auto text-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" id="createButton">
+        Створити нового клієнта
+        </button>*@
+        <p id="buttonError" style="color:red; margin:auto; margin-bottom:20px;"></p>
+        <button type="button" class="btn btn-success mx-auto text-bold" id="createButton" style="margin:auto;">
+            Додати нову модель
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Увага</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Ви дійсно хочете додати дану модель?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ні</button>
+                    <button type="submit" class="btn btn-success">Так,підтвердити</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

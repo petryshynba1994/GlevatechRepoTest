@@ -1,0 +1,46 @@
+﻿<h1>Сторінка адміністратора</h1>
+<div class="a-buttons">
+    <a asp-controller="Admin" asp-action="Customers">Клієнти</a>
+    <a asp-controller="Admin" asp-action="HeatPumpsList">Керування товарами</a>
+</div>
+
+<h2>Аналітика сайту</h2>
+<img src="~/images/analitics.png" />
+
+<style>
+    .a-buttons {
+        display:flex;
+        justify-content:space-between;
+    }
+    .a-buttons a {
+        width:48%;
+        height:35px;
+        text-align:center;
+            background-color: #198754;
+            font-size:1.4em;
+        font-weight:700;
+        box-shadow: 0 0 5px gray;
+        text-decoration:none;
+        color:white;
+        border-radius:6px;
+        /*line-height:-120px;*/
+    }
+
+        .a-buttons a:hover {
+                box-shadow:none;
+        }
+    h2{
+        text-align:center;
+        margin-top:30px;
+    }
+    img {
+        width:100%;
+        margin:auto;
+        margin-top:30px;
+    }
+</style>
+
+
+
+
+

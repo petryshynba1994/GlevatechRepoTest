@@ -1,0 +1,163 @@
+﻿@model List<HeatPump>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+@*<div class="general-width mx-auto">
+<div class="partial-border">*@
+<h1 >Геотермальні теплові насоси</h1>
+
+<div class=" hp-block mb-5">
+    <div class="hp-block-side">
+        <div class="hp-block-left-top d-flex justify-content-center flex-column align-items-center col-6">
+            <img src="~/images/icons/accreditation.png" alt="тепловий насос Glevatech" width="60" height="60" />
+            <p >Гарантія<br> 2 роки</p>
+        </div>
+        <div class="hp-block-left-bottom d-flex justify-content-center flex-column align-items-center col-6">
+            <img src="~/images/icons/search.png" alt="тепловий насос Glevatech" width="60" height="60" />
+            <p>Надійні<br> комплектуючі</p>
+        </div>
+    </div>
+    <div class="hp-block-center">
+        <img src="~/images/HP.png" alt="тепловий насос Glevatech" class="big-image" width="380" />
+    </div>
+    <div class="hp-block-side">
+        <div class="hp-block-right-top d-flex justify-content-center flex-column align-items-center col-6">
+            <img src="~/images/icons/celsius.png" alt="тепловий насос Glevatech" width="60" height="60" />
+            <p>Температура нагріву <br><span class="text-center">50 С°</span></p>
+        </div>
+        <div class="hp-block-right-bottom d-flex justify-content-center flex-column align-items-center col-6">
+            <img src="~/images/icons/best-price.png" alt="тепловий насос Glevatech" width="60" height="60" />
+            <p>Доступна<br> ціна</p>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="horizontal-line"></div>
+
+<div class="mx-auto ">
+    
+    <h2 class="text-center">Модельний ряд</h2>
+    <div class="table-buttons d-flex justify-content-center mt-4">
+    <button id="btnGruntVoda" class="active table-button">ґрунт-вода</button>
+    <button id="btnVodaVoda" class="table-button">вода-вода</button>
+    </div>
+    <table class="table mx-auto" id="tableGruntVoda">
+        <tr  data-header="true">
+            <th>Модель</th>
+            <th>Ціна</th>
+            <th>Потужність</th>
+            <th>Площа</th>
+        </tr>       
+        @foreach (var item in Model.Where(x => x.Type == "ґрунт-вода"))
+        {
+            <tr >
+                <td>@item.Name</td>
+                <td>@item.Price $</td>
+                <td>@item.Power кВт</td>
+                <td>до @item.HeatArea м&sup2</td>
+            </tr>
+        }
+    </table>
+    <table class="table mx-auto" id="tableVodaVoda" style="display: none;">
+        <tr data-header="true">
+            <th>Модель</th>
+            <th>Ціна</th>
+            <th>Потужність</th>
+            <th>Площа</th>
+        </tr>
+        @foreach (var item in Model.Where(x => x.Type == "вода-вода"))
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Price $</td>
+                <td>@item.Power кВт</td>
+                <td>до @item.HeatArea м&sup2</td>
+            </tr>
+        }
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Обработчик нажатия на кнопку "ґрунт-вода"
+    $("#btnGruntVoda").click(function () {
+        $("#btnGruntVoda").addClass("active");
+        $("#btnVodaVoda").removeClass("active");
+        $("#tableGruntVoda").show();
+        $("#tableVodaVoda").hide();
+    });
+
+    // Обработчик нажатия на кнопку "вода-вода"
+    $("#btnVodaVoda").click(function () {
+        $("#btnVodaVoda").addClass("active");
+        $("#btnGruntVoda").removeClass("active");
+        $("#tableGruntVoda").hide();
+        $("#tableVodaVoda").show();
+    });
+</script>
+
+
+<div class="mt-5 mb-5 text-center ">
+        <a type="button" class="btn result-wall-button btn-success button-choose" asp-action="HeatLossCalculator">Підібрати тепловий насос</a>
+</div>
+
+
+
+<div class="horizontal-line"></div>
+
+
+
+<div class="container-types mx-auto">
+    <h2 class="text-center">Типи геотермальних теплових насосів</h2>
+    <div class="heatPump-types">
+        <div class="heatPump-types-child">
+            <h3>Грунт-Вода</h3>
+            <img src="~/images/heatPumpTypes/type1.png" alt="грунт-вода" width="270"  />
+            <p>
+                для роботи потрібен геоконтур, за рахунок якого здійснюється відбір тепла
+                з грунту. Він представляє собою певну кількість труб (в основному вертикального заглиблення),
+                по яким циркулює незамерзаюча рідина і тим самим відбирає тепло з грунту. Глибина залягання труб
+                підбирається з урахуванням геології грунтів та розмірів земельної ділянки.
+            </p>
+        </div>
+        <div class="heatPump-types-child">
+            <h3 >Вода-Вода</h3>
+            <img src="~/images/heatPumpTypes/type2.png" alt="грунт-вода" width="270"  />
+            <p>
+                обов'язковою умовою робити є наяність однієї свердловини, з якої тепловий
+                насос відкачує воду, і другої свердловини або водойми, куди скидується вже відпрацьована охолоджена вода.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="horizontal-line"></div>
+
+
+    <div class="container-videos video-1">      
+            <div class="video-block ">
+                Ми виробляємо геотермальні теплові насоси, бойлери непрямого нагріву, резервні електричні котли під торговою маркою Glevatech, зареєстрованою в Україні. На даному стенді представлена вся наша продукція, яка працює на опалення нашого офісу.
+            </div>
+    <div class="video-block">
+        <iframe style="width:100%" height="250" src="https://www.youtube.com/embed/kwJMD7DaZ70?si=Qnsw4Ueeb4HnwrzB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>      
+    </div>
+        <div class="container-videos video-2">
+    <div class="video-block">
+                <iframe style="width:100%" height="250" src="https://www.youtube.com/embed/ArFLF8dF1E4?si=2iW2OX47HSICmggu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+    <div class="video-block">
+                Фасадна панель теплового насосу виконана із загартованого скла, що дозволило нам підкреслити режим роботи синьо-зеленою підсвіткою. Шум не перевищує 40дБ.
+            </div>
+    </div>
+
+
+
+
+
+<link rel="stylesheet" href="~/css/customer/heatpumps.css" asp-append-version="true" />
+
+
+

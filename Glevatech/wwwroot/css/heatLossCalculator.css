@@ -1,0 +1,231 @@
+﻿.error {
+    border: 3px solid red; 
+}
+
+
+/*h2 with plus-minus button*/
+.parent-plus-minus-button {
+    cursor: pointer;
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    border-bottom: 4px solid orange;
+    margin: 20px auto 10px auto;
+}
+
+.plus-minus-button {
+    height: 40px;
+    width: 60px;
+    background-color: orange;
+    text-align: center;
+    line-height: 40px;
+}
+
+    .plus-minus-button p {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+.plus-minus-button-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    height: 40px;
+    margin-bottom: 0px;
+}
+
+    .plus-minus-button-title h2 {
+        font-size: 27px;
+        white-space: nowrap;
+        text-align: center;
+    }
+/*Inner plus-minus button*/
+.layers-plus-minus-button {
+    cursor: pointer;
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    border-bottom: 1px solid orange;
+    margin: 5px auto;
+}
+
+.inner-plus-minus-button {
+    height: 30px;
+    width: 30px;
+    background-color:orange;
+    border: 3px solid orange;
+    border-radius: 50%;
+    text-align: center;
+    margin-bottom:-1px;
+    margin-left:-15px;
+
+}
+
+    .inner-plus-minus-button p {
+        font-size: 25px;
+        font-weight: 600;
+        line-height:20px;
+    }
+
+.inner-plus-minus-button-title {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-grow: 1;
+    height: 30px;
+    margin-bottom: -1px;
+}
+
+    .inner-plus-minus-button-title h4 {
+        font-size: 21px;
+        font-weight: 500;
+        white-space: nowrap;
+        padding-left: 5px;
+        line-height:30px;
+        margin-bottom:1px;
+    }
+
+/*table*/
+.table-custom-top td input {
+    width: 50px;
+    height: 25px;  
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+    font-weight:500;
+}
+.custom-select {  
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+    width: 220px;
+    height: 25px;
+    font-size: 12px;
+}
+
+    .table-custom-top td input::-webkit-inner-spin-button, .table-custom-top td input::-webkit-outer-spin-button {
+        -webkit-appearance: none; /* Убираем стандартный стиль WebKit */
+        appearance: none; /* Убираем стандартный стиль для других браузеров */
+        margin: 0; /* Убираем внутренний отступ */
+    }
+.custom-result-table p {
+    font-weight:600;
+}
+    .custom-result-table td {
+        height: 0px;
+        padding: 0px;
+    }
+.general-heat-loss-text {
+    font-size:20px;
+}
+.general-result-heatloss {
+    background-color: orange;
+    height: 50px;
+    margin:auto;
+    text-align: center;
+    width:80%;
+    font-size: 20px;
+    font-weight: 600;   
+    border-radius: 30px;
+}
+    .general-result-heatloss p {
+        line-height: 50px;
+    }
+
+    .result-button-block {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+.custom-result {
+    height: 50px;
+}
+
+
+.horizontal-line {
+    margin:auto;
+    width: 60%;
+    height: 1px; /* Высота линии */
+    background: linear-gradient(to left, transparent, gray, transparent);
+}
+
+@media (max-width: 500px) {
+    .plus-minus-button-title h2 {
+        font-size: 19px; /* Настройте размер шрифта для ширины экрана 375px */
+    }
+
+    .inner-plus-minus-button-title h4 {
+        font-size: 16px;
+    }
+
+    .plus-minus-button {
+        height: 40px;
+        width: 40px;
+    }
+    .general-result-heatloss {
+        width: 100%;
+    }
+}
+@media (max-width: 420px) {
+    .plus-minus-button-title h2 {
+        font-size: 22px; /* Настройте размер шрифта для ширины экрана 375px */
+    }
+    .inner-plus-minus-button-title h4 {
+        font-size: 18px;
+    }
+    .plus-minus-button {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+@media (max-width: 370px) {
+    .plus-minus-button-title h2 {
+        font-size: 19px; /* Настройте размер шрифта для ширины экрана 375px */
+    }
+    .inner-plus-minus-button-title h4 {
+        font-size: 16px;
+    }
+    .plus-minus-button {
+        height: 40px;
+        width: 40px;
+    }
+    .custom-select {
+        width: 140px;
+    }
+    .container {
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+}
+
+@media (max-width: 300px) {
+    .plus-minus-button {
+        height: 40px;
+        width: 40px;
+    }
+    .container {       
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 0;
+        padding-left: 0;
+    }
+    .plus-minus-button-title h2 {
+        font-size: 17px; /* Настройте размер шрифта для ширины экрана 375px */
+    }
+    .inner-plus-minus-button-title h4 {
+        font-size: 14px;
+    }
+    .general-result-heatloss p {
+        font-size: 17px;
+    }
+
+}
+

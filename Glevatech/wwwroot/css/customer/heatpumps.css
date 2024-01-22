@@ -1,0 +1,362 @@
+﻿.hp-block {
+    /*background-color: aqua;*/
+    height: 550px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hp-block-side {
+    
+    height: 50%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.hp-block-side p {
+    text-align:center;
+}
+
+.hp-block-center {
+    /*border: 2px solid red;*/
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .hp-block-center img {
+        max-width: 100%;
+    }
+
+
+
+/*    .hp-block-right img {
+        max-width: 30%;
+    }*/
+
+    .hp-block-right p {
+        width: 100%;
+        font-weight: 600;
+        font-size: 20px;
+        text-align: center;
+    }
+
+
+
+/*Heat-pumps table*/
+.model-raw {
+    margin-top:50px;
+}
+
+.table {
+    border-collapse: collapse;
+    display: flex;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
+    
+}
+
+.table tbody {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+tr {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+th {
+    background: #ddd;
+    color: #333;
+    border: 0.3px solid #333;
+    padding: 10px;
+    box-sizing: border-box;
+    display: block;
+    width:100%;
+    height:50px;
+    font-size:1.2em;
+    
+    
+}
+td {
+    border: 0.3px solid #333;
+    padding: 10px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    height: 50px;
+}
+
+
+.table tr th:first-child {
+    background-color: darkorange;
+    color: white;
+    /*    font-size: 22px;
+    height: 60px;*/
+}
+
+.table tr th:nth-child(n + 2) {
+    background-color:gray;
+    color: white;
+/*    font-size: 22px;
+    height: 60px;*/
+}
+
+.table tr td:first-child {
+    background-color: orange;
+    font-weight: 700;
+    color: black;
+    font-size: 1.2em;
+}
+
+.table tr td:nth-child(2) {
+    background-color:darkgray;
+    font-weight: 700;
+    /*color: orange;*/
+    font-size: 1.2em;
+   
+}
+
+.table tr td:nth-child(n+3) {
+    background-color: white;
+}
+/*    Scale animation*/
+.table tr:nth-child(n+2) {
+    transform: scale(1);
+    transition: transform 0.2s;
+}
+
+    /* При наведении на строку она будет масштабироваться и перекрывать остальные строки */
+    .table tr:nth-child(n+2):hover {
+        transform: scale(1.1);
+        z-index: 1;
+        position: relative; /* Необходимо установить позицию, чтобы z-index сработал */
+    }
+
+.button-choose {
+    max-width: 300px;
+    height: 50px;
+    font-size: 22px;
+    font-weight: 600;
+    
+}
+
+.container-videos {
+    width: 100%;
+    
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+.video-block {
+    width:49%
+}
+
+
+.heatPump-types {
+    width: 100%;
+    display:flex;
+    justify-content:space-between;
+    margin:auto;
+    margin-top:70px;
+}
+.heatPump-types-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48%;
+    border: 1px solid gray;
+    background-color:white;  
+    transform: scale(1);
+    transition: transform 0.2s;
+}
+.heatPump-types-child:hover {
+    transform: scale(1.01);
+    box-shadow: 0px 0px 10px gray;
+}
+    .heatPump-types-child h3  {
+        text-align: center;
+    }
+.heatPump-types-child p {
+    text-align: center;
+    width: 90%;
+}
+
+
+.partial-border {
+    box-shadow: 0px 10px 20px 5px gray;
+    padding: 50px;
+    width: 1000px;
+    margin: auto;
+    background-color: white;
+    margin-bottom: 50px;
+    margin-top: -17px;
+}
+.container-types{
+    margin: 50px 0 50px 0;
+}
+
+
+
+
+.horizontal-line {
+    width: 100%;
+    height: 1px; /* Высота линии */
+    background: linear-gradient(to left, transparent, gray, transparent);
+    margin-top:50px;
+    margin-bottom:50px;
+}
+.table-button {
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: gray;
+    border: none;
+    font-weight: 700;
+    font-size: 1.2em;
+    color: white;
+    width:30%;
+}
+
+    .table-button:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s;
+    }
+
+
+.table-buttons button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
+
+@media (max-width:1000px) {
+    .table {
+        display: table;
+        width:100%;
+    }
+        .table tbody {
+            display: table;
+        }
+    tr {
+        display: table-row;
+        width:auto;
+        
+    }
+    th {
+        display: table-cell;
+        width: fit-content;
+        padding: 0;
+        
+    }
+    td {
+        display: table-cell;
+        width: fit-content;
+        padding: 0;
+    }
+    .table tr:nth-child(n+2):hover {
+        transform: none;
+        z-index: 1;
+        position: relative; /* Необходимо установить позицию, чтобы z-index сработал */
+    }
+/*    .table tr td:nth-child(2) {
+        font-size: 12px;
+    }
+    .table tr td:first-child {
+        font-size: 12px;
+    }
+    .table tr th:first-child {
+        font-size: 12px;
+    }
+    .table tr th:nth-child(2) {
+        font-size: 12px;
+    }*/
+}
+@media (max-width:825px) {
+    .heatPump-types {
+        display:block;
+        width:100%;
+    }
+    .heatPump-types-child {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+@media (max-width:550px) {
+    .hp-block {
+        flex-direction:column;
+        padding-top:30px;
+        height:fit-content;
+    }
+    .hp-block-side{
+        width:70%;
+        flex-direction: row;
+        justify-content:space-between;
+    }
+    .hp-block-center {
+        width: 70%;
+    }
+
+    .video-block {
+        width:100%;
+    }
+    .video-1 {
+        flex-direction: column-reverse;
+        
+    }
+    .video-2 {
+        flex-direction: column;  
+        margin-top:50px;
+    }
+    .table-button {
+        width:50%;
+    }
+}
+
+@media (max-width:360px) {
+    .table {
+        margin-top:20px;
+    }
+    .table > :not(caption) > * > * {
+        padding: 0.3rem 0.3rem;
+    }
+
+    th {
+        display: table-cell;
+        width: fit-content;
+        font-size: 1em;
+    }
+
+    td {
+        font-size:0.9em;
+    }
+
+    .table tr td:nth-child(2) {
+        font-size: 1em;
+    }
+
+    .table tr td:first-child {
+        font-size: 1em;
+    }
+
+    .button-choose {
+        font-size:1.3em;
+        line-height:35px;
+    }
+}
+
+
