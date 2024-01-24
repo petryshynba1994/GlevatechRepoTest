@@ -1,0 +1,19 @@
+﻿@media (max-width:500px) {
+    .buttons {
+        flex-direction: column;
+        align-items:center;
+    }
+    .buttons div {
+        width:200px;
+        margin-bottom:10px;
+        height:50px;
+    }
+    .delete-form-button {
+        height:50px;
+        width:100%;
+    }
+    .delete-form-button div{
+        margin:0 auto;
+    }
+
+}

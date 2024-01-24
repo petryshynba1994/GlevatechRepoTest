@@ -3,11 +3,11 @@
     @Model.Surname @Model.Name @Model.SecondName
     @if (Model.Status == "в роботі")
     {
-        <span class="bg-success" style="color:white; border-radius:10px; font-size:20px; padding:5px;">в роботі</span>
+        <span class="bg-success" style="color:white; border-radius:10px; font-size:20px; padding:5px;display:block;width:200px;margin:0 auto;">в роботі</span>
     }
     else
     {
-        <span class="bg-danger" style="color:white; border-radius:10px; font-size:20px; padding:5px;">завершений</span>
+        <span class="bg-danger" style="color:white; border-radius:10px; font-size:20px; padding:5px; display:block;width:200px;margin:0 auto;">завершений</span>
     }
 </h1>
 <style>
@@ -186,7 +186,7 @@
     </form>
 </div>
 
-
+<link href="~/css/admin/customerDetails.css" rel="stylesheet" />
 
 
 

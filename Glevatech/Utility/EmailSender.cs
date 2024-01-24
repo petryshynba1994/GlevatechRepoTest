@@ -7,12 +7,22 @@ namespace Glevatech.Utility
 {
     public class EmailSender : IEmailSender
     {
-       
+        private readonly IConfiguration _config;
+        public EmailSender(IConfiguration config)
+        {
+            _config = config;
+        }
 
        public  Task SendEmailAsync(string email, string subject, string htmlMessage)
        {
+            string? smtpServer = _config["EmailSender:SmtpServer"];
+            int smtpPort = int.Parse(_config["EmailSender:SmtpPort"]);
+            string? username = _config["EmailSender:Username"];
+            string? password = _config["EmailSender:Password"];
+
+
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Glevatech", "glevatech@outlook.com"));
+            message.From.Add(new MailboxAddress("Glevatech", username));
             message.To.Add(new MailboxAddress("Отримувач", email));
             message.Subject = subject;
 
@@ -22,9 +32,9 @@ namespace Glevatech.Utility
 
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
+                client.Connect(smtpServer, smtpPort, SecureSocketOptions.StartTls);
                 //client.Connect("smtp-mail.outlook.com", 587, true);
-                client.Authenticate("glevatech@outlook.com", "Petryshynba1994");
+                client.Authenticate(username, password);
                 client.Send(message);
                 client.Disconnect(true);
             }

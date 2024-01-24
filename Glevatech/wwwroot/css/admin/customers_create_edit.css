@@ -109,3 +109,17 @@
     background-color: rgb(87, 230, 0);
     font-weight: 700;   
 }
+@media (max-width:600px){
+    .short-inputs {
+        flex-direction:column;       
+    }
+        .short-inputs div {
+            width:100%;
+        }
+    .short-inputs-date {
+        justify-content:space-between;
+    }
+    .short-inputs-date div {
+        width: 48%;
+    }
+}

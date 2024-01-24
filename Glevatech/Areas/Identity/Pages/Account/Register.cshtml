@@ -27,11 +27,11 @@
                 <label asp-for="Input.ConfirmPassword">Повторіть пароль</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
+@*            <div class="form-floating mb-3">
                 <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
                 <option disabled selected>Виберіть роль</option>
                 </select>
-            </div>
+            </div>*@
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Зареєструватись</button>
         </form>
     </div>

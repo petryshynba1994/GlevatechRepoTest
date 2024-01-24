@@ -149,13 +149,13 @@
 .horizontal-line {
     margin:auto;
     width: 60%;
-    height: 1px; /* Высота линии */
+    height: 1px; 
     background: linear-gradient(to left, transparent, gray, transparent);
 }
 
 @media (max-width: 500px) {
     .plus-minus-button-title h2 {
-        font-size: 19px; /* Настройте размер шрифта для ширины экрана 375px */
+        font-size: 19px; 
     }
 
     .inner-plus-minus-button-title h4 {
@@ -172,7 +172,7 @@
 }
 @media (max-width: 420px) {
     .plus-minus-button-title h2 {
-        font-size: 22px; /* Настройте размер шрифта для ширины экрана 375px */
+        font-size: 22px; 
     }
     .inner-plus-minus-button-title h4 {
         font-size: 18px;
@@ -185,7 +185,7 @@
 
 @media (max-width: 370px) {
     .plus-minus-button-title h2 {
-        font-size: 19px; /* Настройте размер шрифта для ширины экрана 375px */
+        font-size: 19px; 
     }
     .inner-plus-minus-button-title h4 {
         font-size: 16px;

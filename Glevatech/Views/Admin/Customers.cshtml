@@ -6,13 +6,15 @@
 <form method="get" class="customers-form">
     <div class="form-group">
         <div class="form-search">
-            @Html.DropDownList("searchType", (IEnumerable<SelectListItem>)ViewBag.SearchTypes, new { @class = "form-select" })
-            <input id="searchValue" name="searchValue" value="@Model.SearchValue" class="form-control" />
-            <button type="submit" class="btn btn-primary">Пошук</button>
+            @Html.DropDownList("searchType", (IEnumerable<SelectListItem>)ViewBag.SearchTypes, new { @class = "form-select " })
+            <input id="searchValue" name="searchValue" value="@Model.SearchValue" class="form-control "/>
+            <button type="submit" class="btn btn-primary btn-search">Пошук</button>
         </div>
         <div class="form-choose">
+            <div>           
             @Html.DropDownList("status", (IEnumerable<SelectListItem>)ViewBag.CustomersStatus, new {onchange = "this.form.submit();", @class = "form-select"  })
             @Html.DropDownList("pageSize", (IEnumerable<SelectListItem>)ViewBag.PageSizeOptions, new { onchange = "this.form.submit();", @class = "form-select"  })
+        </div>
             <div class="out-of-form-buttons d-flex justify-content-between" style="width:100%;">
                 <div>
                     <a asp-controller="Admin" asp-action="Customers" type="button" class="btn btn-secondary" style="color:white; font-weight:700;">Відновити список</a>            
@@ -30,7 +32,7 @@
 @*<form method="get">
     @Html.DropDownList("pageSize", (IEnumerable<SelectListItem>)ViewBag.PageSizeOptions, new { onchange = "this.form.submit();" })
 </form>*@
-<div style="max-height: 80%;">
+<div style="max-height: 80%;" class="table-container">
     <table class="table  border-secondary" id="customerTable">
         <tr>
             <th>
@@ -120,4 +122,4 @@
         </div>
     }
 </div>
-<link href="~/css/customers.css" rel="stylesheet" />
+<link href="~/css/admin/customers.css" rel="stylesheet" />
