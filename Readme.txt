@@ -28,7 +28,8 @@ The project is a website dedicated to the sale of heat pumps. It has been develo
 -Deployment on Azure: The project is hosted on Microsoft Azure.
 ................................................................................................................
 
--Administrator Access:
+https://glevatech.azurewebsites.net
 
+-Administrator Access:
 Username: pbmargin@gmail.com
 Password: Petryshynba1994!@
