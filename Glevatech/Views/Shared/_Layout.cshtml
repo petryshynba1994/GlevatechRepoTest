@@ -1,42 +1,30 @@
 ﻿@using Glevatech.Utility
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Glevatech</title>
+    <link rel="icon" type="image/x-icon" href="~/images/favicon.ico" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    
     <link rel="stylesheet" href="~/Glevatech.styles.css" asp-append-version="true" />
-
-
-
 </head>
-
-
-
 <body>
-
     <div class="wrapper">
-        <header>
-            
+        <header>           
             <div class="header-top-line">
                 <div class="header-top-line-block" style="display:flex;justify-content: space-between; flex-direction:row; max-width:1000px; margin:auto; height:100%;">
                     <div class="header-phones">
                         <p>
-                            (098) 111 11 11
+                            +380 73 128 5248
                             <br />
-                            (073) 222 22 22
+                            @*(073) 222 22 22*@
                         </p>
-                    </div>
-                    
-                        <partial name="_LoginPartial" />
-                    
+                    </div>                   
+                        <partial name="_LoginPartial" />                   
                 </div>
             </div>
-
             <div class="header-image">
                 <img src="~/images/Glevatech.jpg" />
             </div>
@@ -74,10 +62,7 @@
                     </div>
                 </div>
             </nav>
-
         </header>
-
-
         <main role="main" class="image-1">
             <div class="main-width">
                 @RenderBody()
@@ -87,9 +72,9 @@
             <div class="footer-text-block p-2 col-4">
                 Контактні дані:
                 <br />
-                (098) 111 11 11
+                +380 73 128 5248
                 <br />
-                (073) 222 22 22
+                @*(073) 222 22 22*@
                 <br />
                 <br />
                 E-mail:
@@ -112,9 +97,7 @@
             </div>
         </footer>
     </div>
-
     @* <script>document.getElementById('davaToday').valueAsDate = new Date();</script>*@
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
